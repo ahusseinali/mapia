@@ -1,0 +1,22 @@
+{
+  "name": "mapia",
+  "version": "1.0.0",
+  "description": "Fun and Informative Map",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahusseinali/mapia.git"
+  },
+  "author": "Ahmed Ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahusseinali/mapia/issues"
+  },
+  "homepage": "https://github.com/ahusseinali/mapia#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
