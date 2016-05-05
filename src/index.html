@@ -7,18 +7,20 @@
 
     <!-- Library scripts -->
     <script src="js/knockout-3.4.0.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOGnqhe9Mv1eowQXkzZunmUSz2dajfySw"></script>
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOGnqhe9Mv1eowQXkzZunmUSz2dajfySw&libraries=places"></script>
 </head>
 <body>
     <div class="map-container" data-bind="with: mapModel">
         <!-- Followed the custom binding handler in http://testasoftware.com/steve/blog/knockout-binding-handler-for-google-maps/ -->
         <div class="map" data-bind=
-            "googlemap: { center: center, zoom: zoom, locations: locations, styles: styles}">
+            "googlemap: { center: center, zoom: zoom, places: places, styles: styles}">
         </div>
     </div>
 
     <!-- JS Logic scripts -->
     <script src="js/models/map-styles.js"></script>
+    <script src="js/models/places-model.js"></script>
     <script src="js/models/map-model.js"></script>
     <script src="js/viewmodels/map-viewmodel.js"></script>
     <script src="js/app.js"></script>

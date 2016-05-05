@@ -15,7 +15,11 @@ app.viewModels = app.viewModels || {};
             },
             map = new google.maps.Map(elem, mapOptions);
 
-            val.locations().forEach(function(loc) {
+            var placesModel = val.places;
+            // Load places from Google Places API
+            placesModel.loadGooglePlaces(map, val.center());
+
+            placesModel.places().forEach(function(loc) {
                 var latLng = new google.maps.LatLng(
                     value.loc.latitude,
                     value.loc.longitude);

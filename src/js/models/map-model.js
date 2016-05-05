@@ -4,11 +4,13 @@ app.models = app.models || {};
 (function() {
     'use strict';
 
-    // Specify the map initialization options
-    app.models.mapModel = {
-        center: ko.observable(new google.maps.LatLng(47.608, -122.335)),
-        zoom: ko.observable(12),
-        locations: ko.observableArray([]),
-        styles: ko.observable(app.models.mapStyles.facebook)
+    var MapModel = function() {
+        this.center = ko.observable(new google.maps.LatLng(47.6163, -122.192));
+        this.zoom = ko.observable(15);
+        this.styles = ko.observable(app.models.mapStyles.facebook);
+        this.places = app.models.placesModel;
     };
+
+    // Specify the map initialization options
+    app.models.mapModel = new MapModel();
 })();
