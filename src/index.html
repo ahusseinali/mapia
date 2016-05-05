@@ -2,14 +2,21 @@
 <html>
 <head>
     <title>Mapia</title>
+    <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Library scripts -->
+    <script src="js/knockout-3.4.0.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOGnqhe9Mv1eowQXkzZunmUSz2dajfySw"></script>
 </head>
 <body>
-    <div class="map-container">
-        <div id="map"></div>
+    <div class="map-container" data-bind="with: mapModel">
+        <div class="map" data-bind="googlemap: { center: center, zoom: zoom, locations: locations}"></div>
     </div>
-    <script src="js/map-view.js"></script>
+
+    <!-- JS Logic scripts -->
+    <script src="js/models/map-model.js"></script>
+    <script src="js/viewmodels/map-viewmodel.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
