@@ -10,7 +10,8 @@ app.viewModels = app.viewModels || {};
             var val = valueAccessor(),
             mapOptions = {
                 zoom: val.zoom(),
-                center: val.center()
+                center: val.center(),
+                styles: val.styles()
             },
             map = new google.maps.Map(elem, mapOptions);
 

@@ -7,7 +7,8 @@ app.models = app.models || {};
     // Specify the map initialization options
     app.models.mapModel = {
         center: ko.observable(new google.maps.LatLng(47.608, -122.335)),
-        zoom: ko.observable(8),
-        locations: ko.observableArray([])
+        zoom: ko.observable(12),
+        locations: ko.observableArray([]),
+        styles: ko.observable(app.models.mapStyles.facebook)
     };
 })();
