@@ -12,21 +12,33 @@ app.viewModels = app.viewModels || {};
                 zoom: val.zoom(),
                 center: val.center(),
                 styles: val.styles()
-            },
-            map = new google.maps.Map(elem, mapOptions);
+            };
+
+            app.map = new google.maps.Map(elem, mapOptions);
 
             var placesModel = val.places;
             // Load places from Google Places API
-            placesModel.loadGooglePlaces(map, val.center());
+            placesModel.loadGooglePlaces(val.center());
 
-            placesModel.places().forEach(function(loc) {
-                var latLng = new google.maps.LatLng(
-                    value.loc.latitude,
-                    value.loc.longitude);
-
+            console.log(placesModel.places());
+            placesModel.places().forEach(function(place) {
+                console.log(place);
                 var marker = new google.maps.Marker({
-                    position: latLng,
-                    map: map
+                    position: place.latLng,
+                    map: app.map
+                });
+            });
+        },
+
+        update: function(elem, valueAccessor) {
+            var val = valueAccessor();
+            var placesModel = val.places;
+
+            placesModel.places().forEach(function(place) {
+                console.log(place);
+                var marker = new google.maps.Marker({
+                    position: place.latLng,
+                    map: app.map
                 });
             });
         }
