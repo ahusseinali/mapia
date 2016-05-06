@@ -20,9 +20,7 @@ app.viewModels = app.viewModels || {};
             // Load places from Google Places API
             placesModel.loadGooglePlaces(val.center());
 
-            console.log(placesModel.places());
             placesModel.places().forEach(function(place) {
-                console.log(place);
                 var marker = new google.maps.Marker({
                     position: place.latLng,
                     map: app.map
@@ -35,7 +33,6 @@ app.viewModels = app.viewModels || {};
             var placesModel = val.places;
 
             placesModel.places().forEach(function(place) {
-                console.log(place);
                 var marker = new google.maps.Marker({
                     position: place.latLng,
                     map: app.map
