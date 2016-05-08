@@ -5,11 +5,12 @@ app.models = app.models || {};
     'use strict';
 
     // Initialized using Google Places Result
-    var Place = function(googlePlace) {
+    var Place = function(googlePlace, type) {
+        this.id = googlePlace.place_id;
         this.latLng = googlePlace.geometry.location;
         this.name = googlePlace.name;
         this.address = googlePlace.vicinity;
-        this.types = googlePlace.types;
+        this.type = type;
     };
 
     app.models.place = Place;
