@@ -10,7 +10,7 @@ app.models = app.models || {};
         this.latLng = googlePlace.geometry.location;
         this.name = googlePlace.name;
         this.address = googlePlace.vicinity;
-        this.type = type;
+        this.types = [type];
     };
 
     app.models.place = Place;

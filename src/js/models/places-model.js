@@ -33,7 +33,15 @@ app.models = app.models || {};
         var self = this;
         self.placesService.nearbySearch(request, function(response) {
             response.forEach(function(googlePlace) {
-                self.places.push(new app.models.place(googlePlace, type));
+                // If the place exists, add new type only
+                var existingPlace = self.places().filter(function(place) {
+                    return place.id == googlePlace.place_id;
+                });
+                if(existingPlace.length > 0) {
+                    existingPlace[0].types.push(type);
+                } else {
+                    self.places.push(new app.models.place(googlePlace, type));
+                }
             });
         });
     }
