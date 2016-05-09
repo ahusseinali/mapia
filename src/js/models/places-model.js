@@ -21,6 +21,8 @@ app.models = app.models || {};
         this.addGooglePlaces(latLng, 'restaurant');
         // Load grocery
         this.addGooglePlaces(latLng, 'grocery');
+        // Load hospitals
+        this.addGooglePlaces(latLng, 'hospital');
     };
 
     PlacesModel.prototype.addGooglePlaces = function(latLng, type) {

@@ -44,10 +44,6 @@ app.mapObjects = app.mapObjects || {};
                     map: app.mapObjects.map
                 });
 
-                if(place.types.length > 1) {
-                    console.log(place);
-                }
-
                 // Set the marker icon to the first type
                 marker.setIcon('img/' + place.types[0] + '.png');
 
