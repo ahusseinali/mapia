@@ -16,7 +16,7 @@ app.models = app.models || {};
         // Load stores
         this.addGooglePlaces(latLng, 'store');
         // Load lodges
-        this.addGooglePlaces(latLng, 'hotel');
+        this.addGooglePlaces(latLng, 'lodge');
         // Load restaurants
         this.addGooglePlaces(latLng, 'restaurant');
         // Load grocery
@@ -26,9 +26,8 @@ app.models = app.models || {};
     PlacesModel.prototype.addGooglePlaces = function(latLng, type) {
         var request = {
             location: latLng,
-            type: type,
-            radius: '2000',
-            rankby: google.maps.places.RankBy.DISTANCE
+            keyword: type,
+            radius: '2000'
         };
         var self = this;
         self.placesService.nearbySearch(request, function(response) {
