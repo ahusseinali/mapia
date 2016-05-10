@@ -8,3 +8,39 @@ html, body, .map-container {
     height: 100%;
 }
 
+/* Info box styles */
+.info-container {
+    width: 300px;
+    height: 600px;
+    overflow-y: scroll;
+}
+.title {
+    text-align: center;
+}
+
+.info-section {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.banner {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.info-type {
+    display: block;
+    font-weight: bold;
+}
+
+.info-data {
+    font-weight: normal;
+    font-style: italic;
+}
+
+.yelp {
+    display: block;
+}
+
