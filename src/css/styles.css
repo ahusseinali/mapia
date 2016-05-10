@@ -8,11 +8,17 @@ html, body, .map-container {
     height: 100%;
 }
 
+#infobox {
+    width: 350px;
+    height: 600px;
+}
+
 /* Info box styles */
 .info-container {
-    width: 300px;
-    height: 600px;
-    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .title {
     text-align: center;
@@ -22,6 +28,7 @@ html, body, .map-container {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
+    padding: 10px;
 }
 
 .banner {
@@ -42,5 +49,6 @@ html, body, .map-container {
 
 .yelp {
     display: block;
+    margin-bottom: 5px;
 }
 
