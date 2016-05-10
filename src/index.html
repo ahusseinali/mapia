@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Mapia</title>
+    <meta charset="utf-8">
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
 
@@ -18,6 +19,15 @@
         <!-- Followed the custom binding handler in http://testasoftware.com/steve/blog/knockout-binding-handler-for-google-maps/ -->
         <div class="map" data-bind=
             "googlemap: { center: center, zoom: zoom, places: places, styles: styles, info: infobox}">
+        </div>
+
+        <div class="sideNav">
+            <div class="search-header">
+                <div class="search">
+                    <div class="fa fa-search"></div>
+                    <input class="searchbox" placeholder="Type search keyword">
+                </div>
+            </div>
         </div>
 
         <!-- Template to be displayed in the infobox -->
