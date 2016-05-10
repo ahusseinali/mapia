@@ -11,6 +11,8 @@ app.models = app.models || {};
         this.name = googlePlace.name;
         this.address = googlePlace.vicinity;
         this.types = [type];
+        // This is to be filled with the yelp result.
+        this.yelp = null;
     };
 
     app.models.place = Place;

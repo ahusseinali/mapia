@@ -5,6 +5,17 @@ app.models = app.models || {};
     'use strict';
 
     var PlacesModel = function() {
+        this.yelp = {
+            url: 'http://api.yelp.com/v2/search',
+
+            consumerKey: yelpConsumerKey,
+            consumerSecret: yelpConsumerSecret,
+            accessToken: yelpAccessToken,
+            accessTokenSecret: yelpAccessTokenSecret,
+            serviceProvider: {
+                signatureMethod: "HMAC-SHA1"
+            }
+        };
         this.places = ko.observableArray([]);
     };
 
@@ -23,6 +34,8 @@ app.models = app.models || {};
         this.addGooglePlaces(latLng, 'grocery');
         // Load hospitals
         this.addGooglePlaces(latLng, 'hospital');
+        // Load parks
+        this.addGooglePlaces(latLng, 'park');
     };
 
     PlacesModel.prototype.addGooglePlaces = function(latLng, type) {
@@ -45,7 +58,49 @@ app.models = app.models || {};
                 }
             });
         });
-    }
+    };
+
+    PlacesModel.prototype.loadYelpDetails = function(place) {
+        var terms = place.name;
+        var near = place.latLng.lat() + ',' + place.latLng.lng();
+        var accessor = {
+            consumerSecret: this.yelp.consumerSecret,
+            tokenSecret: this.yelp.accessTokenSecret
+        };
+        var self = this;
+        // Construct Request Parameters
+        var parameters = [];
+        parameters.push(['term', terms]);
+        parameters.push(['ll', near]);
+        parameters.push(['callback', 'cb']);
+        parameters.push(['oauth_consumer_key', self.yelp.consumerKey]);
+        parameters.push(['oauth_consumer_secret', self.yelp.consumerSecret]);
+        parameters.push(['oauth_token', self.yelp.accessToken]);
+        parameters.push(['oauth_signature_method', self.yelp.serviceProvider.signatureMethod]);
+
+        var message = {
+            'action': self.yelp.url,
+            'method': 'GET',
+            'parameters': parameters
+        };
+
+        OAuth.setTimestampAndNonce(message);
+        OAuth.SignatureMethod.sign(message, accessor);
+        var parameterMap = OAuth.getParameterMap(message.parameters);
+        parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
+
+        // Perform the ajax call.
+        $.ajax({
+            'url': message.action,
+            'data': parameterMap,
+            'cache': true,
+            'dataType': 'jsonp',
+            'jsonpCallback': 'cb',
+            'success': function(data, textStats, XMLHttpRequest) {
+                console.log(data);
+            }
+        });
+    };
 
     app.models.placesModel = new PlacesModel();
 })();

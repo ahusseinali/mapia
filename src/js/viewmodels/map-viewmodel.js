@@ -51,6 +51,8 @@ app.mapObjects = app.mapObjects || {};
                 google.maps.event.clearListeners(marker, 'click');
                 // Add listener to marker
                 marker.addListener('click', function() {
+                    // Load yelp data
+                    placesModel.loadYelpDetails(place);
                     app.mapObjects.infowindow.setContent(place.name);
                     app.mapObjects.infowindow.open(app.mapObjects.map, marker);
                 });
