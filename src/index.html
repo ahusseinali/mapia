@@ -22,12 +22,18 @@
         </div>
 
         <div class="sideNav">
-            <div class="search-header">
+            <div class="search-header row">
                 <div class="search">
                     <div class="fa fa-search"></div>
                     <input class="searchbox" placeholder="Type search keyword">
                 </div>
             </div>
+            <ul class="results row" data-bind="foreach: places.selectedPlaces">
+                <li>
+                    <h2 class="item-name" data-bind="text: name"></h2>
+                    <h4 class="item-types" data-bind="text: types.join(',')"></h4>
+                </li>
+            </ul>
         </div>
 
         <!-- Template to be displayed in the infobox -->

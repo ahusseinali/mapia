@@ -59,6 +59,8 @@ app.mapObjects = app.mapObjects || {};
                     app.mapObjects.infowindow.setContent(val.info);
                     app.mapObjects.infowindow.open(app.mapObjects.map, marker);
                 });
+
+                app.mapObjects.markers.push(marker);
             });
         }
     }

@@ -1,8 +1,11 @@
-@import url(../fonts/font-awesome-4.6.2/css/font-awesome.min.css);
+@import url(../fonts/font-awesome.min.css);
 
 html, body, .map-container {
     width: 100%;
     height: 100%;
+    margin: 0;
+    font-family: 'Arial';
+    overflow: hidden;
 }
 
 body {
@@ -62,28 +65,36 @@ body {
 .sideNav {
     position: absolute;
     top: 0;
-    left:; 0;
+    left: 0;
     height: 100%;
     width: 25%;
     min-width: 100px;
-    background-color: #8b9dc3;
+    background-color: #444;
+    display: flex;
+    flex-flow: column;
 }
 
+/* Search Header Section */
 .search-header {
     position: relative;
     width: 100%;
-    height: auto;
-    border-bottom: 1px solid #3b5998;
+    flex: 0 1 auto;
+    border-bottom: 2px solid #ccc;
 }
 .search {
-    color: #3b5998;
+    color: #aaa;
 }
 
 .fa-search {
   position: absolute;
+  margin: auto;
+  line-height: 10%;
   font-size: 18px;
-  top: 9px;
-  left: 13px;
+  top: 0;
+  left: 15px;
+  bottom: 0;
+  width: 10%;
+  height: 10%;
 }
 
 .searchbox {
@@ -94,7 +105,51 @@ body {
     margin: 5px auto;
     text-indent: 30px;
     border: 0;
-    color: #3b5998;
+    color: #555;
 }
+
+/* Result List */
+.results {
+    flex: 1 1 auto;
+    list-style: none;
+    padding: 10px 20px;
+    overflow-y: auto;
+    /* Hide scrollbar for Internet Explorer */
+    -ms-overflow-style: -ms-autohiding-scrollbar
+}
+
+/* Hide Scrollbar */
+.results::-webkit-scrollbar {
+    width: 0;
+}
+
+/* List Item Styles */
+.results li {
+    border-bottom: 1px solid #aaa;
+    line-height: 2em;
+    font-size: 12px;
+}
+
+.results li:hover {
+    background-color: #888;
+}
+
+.item-name {
+    margin: 5px;
+    color: #f7f7f7;
+    font-size: 15px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.item-types {
+    margin: 5px;
+    color: #ccc;
+    font-size: 10px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+
 
 
