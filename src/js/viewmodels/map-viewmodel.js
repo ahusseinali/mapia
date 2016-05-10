@@ -25,13 +25,6 @@ app.mapObjects = app.mapObjects || {};
             var placesModel = val.places;
             // Load places from Google Places API
             placesModel.loadGooglePlaces(val.center());
-
-            placesModel.places().forEach(function(place) {
-                var marker = new google.maps.Marker({
-                    position: place.latLng,
-                    map: app.mapObjects.map
-                });
-            });
         },
 
         update: function(elem, valueAccessor) {
@@ -53,7 +46,10 @@ app.mapObjects = app.mapObjects || {};
                 marker.addListener('click', function() {
                     // Load yelp data
                     placesModel.loadYelpDetails(place);
-                    app.mapObjects.infowindow.setContent(place.name);
+                    // Set Current Place to trigger bidning with current place
+                    placesModel.currentPlace(place);
+                    // Get the Infowindow template
+                    app.mapObjects.infowindow.setContent(val.info);
                     app.mapObjects.infowindow.open(app.mapObjects.map, marker);
                 });
             });

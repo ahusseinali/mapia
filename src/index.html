@@ -17,12 +17,42 @@
     <div class="map-container" data-bind="with: mapModel">
         <!-- Followed the custom binding handler in http://testasoftware.com/steve/blog/knockout-binding-handler-for-google-maps/ -->
         <div class="map" data-bind=
-            "googlemap: { center: center, zoom: zoom, places: places, styles: styles}">
+            "googlemap: { center: center, zoom: zoom, places: places, styles: styles, info: infobox}">
+        </div>
+
+        <!-- Template to be displayed in the infobox -->
+        <div id="infobox" data-bind="visible: places.isPlaceSelected">
+            <div class="info-container" data-bind="with: places.currentPlace">
+                <h3 class="title" data-bind="text: name"></h3>
+                <div class="info-section">
+                    <img class="banner" data-bind="attr: {src: img}">
+                    <label class="info-type">Address:
+                        <span class="info-data" data-bind="text: address"></span>
+                    </label>
+                    <label class="info-type">Google Rating:
+                        <span class="info-data" data-bind="text: rating"></span>
+                    </label>
+                </div>
+                <div class="info-section" data-bind="visible: hasYelpData">
+                    <!-- ko with: yelp -->
+                    <img class="yelp" src="img/yelp.png">
+                    <img class="banner" data-bind="attr: {src: img}">
+                    <label class="info-type">Rating:
+                        <img class="rating" data-bind="attr: {src: rating}">
+                    </label>
+                    <label class="info-type">Link:
+                        <a data-bind="attr: {href: url}, text: $parent.name"></a>
+                    </label>
+                    <p class="snippet" data-bind="text: snippet"></p>
+                    <!-- /ko -->
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- JS Logic scripts -->
     <script src="js/models/map-styles.js"></script>
+    <script src="js/models/yelp-model.js"></script>
     <script src="js/models/place-model.js"></script>
     <script src="js/models/places-model.js"></script>
     <script src="js/models/map-model.js"></script>

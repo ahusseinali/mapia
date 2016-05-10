@@ -17,7 +17,12 @@ app.models = app.models || {};
             }
         };
         this.places = ko.observableArray([]);
+        this.currentPlace = ko.observable(null);
     };
+
+    PlacesModel.prototype.isPlaceSelected = function() {
+        return this.currentPlace() != null;
+    }
 
     // Use Ajax JSONP request to get near by places.
     // Using Google Places API
@@ -97,7 +102,11 @@ app.models = app.models || {};
             'dataType': 'jsonp',
             'jsonpCallback': 'cb',
             'success': function(data, textStats, XMLHttpRequest) {
-                console.log(data);
+                // Take the first object in the businesses array.
+                if(data.businesses && data.businesses.length > 0) {
+                    var yelpObj = new app.models.yelp(data.businesses[0]);
+                    place.yelp(yelpObj);
+                }
             }
         });
     };
