@@ -15,12 +15,13 @@ app.mapObjects = app.mapObjects || {};
                 styles: val.styles()
             };
 
-            // Initialize map and info window
+            // Initialize map and info window and markers
             app.mapObjects.map = new google.maps.Map(elem, mapOptions);
             app.mapObjects.infowindow = new google.maps.InfoWindow(
             {
                 content: ''
             });
+            app.mapObjects.markers = [];
 
             var placesModel = val.places;
             // Load places from Google Places API
@@ -30,8 +31,14 @@ app.mapObjects = app.mapObjects || {};
         update: function(elem, valueAccessor) {
             var val = valueAccessor();
             var placesModel = val.places;
+            // Clear all markers
+            app.mapObjects.markers.forEach(function(marker) {
+                marker.setMap(null);
+            })
+            app.mapObjects.markers = [];
 
-            placesModel.places().forEach(function(place) {
+            // Display only markers for selected places
+            placesModel.selectedPlaces().forEach(function(place) {
                 var marker = new google.maps.Marker({
                     position: place.latLng,
                     map: app.mapObjects.map

@@ -16,7 +16,8 @@ app.models = app.models || {};
                 signatureMethod: "HMAC-SHA1"
             }
         };
-        this.places = ko.observableArray([]);
+        this.places = [];
+        this.selectedPlaces = ko.observableArray([]);
         this.currentPlace = ko.observable(null);
     };
 
@@ -53,13 +54,15 @@ app.models = app.models || {};
         self.placesService.nearbySearch(request, function(response) {
             response.forEach(function(googlePlace) {
                 // If the place exists, add new type only
-                var existingPlace = self.places().filter(function(place) {
+                var existingPlace = self.places.filter(function(place) {
                     return place.id == googlePlace.place_id;
                 });
                 if(existingPlace.length > 0) {
                     existingPlace[0].types.push(type);
                 } else {
-                    self.places.push(new app.models.place(googlePlace, type));
+                    var newPlace = new app.models.place(googlePlace, type);
+                    self.places.push(newPlace);
+                    self.selectedPlaces.push(newPlace);
                 }
             });
         });
