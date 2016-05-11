@@ -69,10 +69,18 @@ app.mapObjects = app.mapObjects || {};
         this.mapModel = ko.observable(model);
     };
 
+    // Perform search and filtering selected places
     MapViewModel.prototype.search = function(keyword) {
         // Select places based on search result
         this.mapModel.search(keyword);
     };
+
+    // Display Infobox when a place in side bar is selected.
+    MapViewModel.prototype.selectPlace = function(index) {
+        console.log(index);
+        // Trigger marker click
+        new google.maps.event.trigger(app.mapObjects.markers[index], 'click');
+    }
 
     app.viewModels.mapVM = new MapViewModel(app.models.mapModel);
 })();

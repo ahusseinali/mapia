@@ -30,7 +30,7 @@
                 </div>
             </div>
             <ul class="results row" data-bind="foreach: places.selectedPlaces">
-                <li>
+                <li data-bind="click: $root.selectPlace.bind($root, $index())">
                     <h2 class="item-name" data-bind="text: name"></h2>
                     <h4 class="item-types" data-bind="text: types.join(',')"></h4>
                 </li>
