@@ -6,52 +6,60 @@ app.models = app.models || {};
 
     // Custome styles for google maps
     app.models.mapStyles = {
-        // Taken from: https://snazzymaps.com/style/46184/facebook
-        facebook: [
+        // Taken from: https://snazzymaps.com/style/2/midnight-commander
+        midnight: [
             {
-                "featureType": "all",
-                "elementType": "all",
-                "stylers": [{"hue": "#3b5998"},{"saturation": -22}]
+                "featureType":"all",
+                "elementType":"labels.text.fill",
+                "stylers":[{"color":"#ffffff"}]
             },{
-                "featureType": "administrative",
-                "elementType": "labels.text.fill",
-                "stylers": [{"visibility":"on"},{"color":"#3b5998"}]
+                "featureType":"all",
+                "elementType":"labels.text.stroke",
+                "stylers":[{"color":"#000000"},{"lightness":13}]
             },{
-                "featureType": "administrative.country",
-                "elementType": "geometry.stroke",
-                "stylers": [{"visibility":"simplified"},{"color":"#3b5998"}]
+                "featureType":"administrative",
+                "elementType":"geometry.fill",
+                "stylers":[{"color":"#000000"}]
             },{
-                "featureType": "administrative.province",
-                "elementType": "all",
-                "stylers": [{"visibility":"off"}]
+                "featureType":"administrative",
+                "elementType":"geometry.stroke",
+                "stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]
             },{
-                "featureType": "landscape",
-                "elementType": "all",
-                "stylers": [{"visibility":"on"},{"color":"#f7f7f7"},{"saturation":10},{"lightness":76}]
+                "featureType":"landscape",
+                "elementType":"all",
+                "stylers":[{"color":"#08304b"}]
             },{
-                "featureType": "landscape.natural",
-                "elementType": "all",
-                "stylers": [{"color":"#f7f7f7"}]
+                "featureType":"poi",
+                "elementType":"geometry",
+                "stylers":[{"color":"#0c4152"},{"lightness":5}]
             },{
-                "featureType": "road.highway",
-                "elementType": "geometry.fill",
-                "stylers": [{"color":"#8b9dc3"},{"visibility":"simplified"}]
+                "featureType":"road.highway",
+                "elementType":"geometry.fill",
+                "stylers":[{"color":"#000000"}]
             },{
-                "featureType": "road.highway",
-                "elementType": "labels.icon",
-                "stylers": [{"visibility":"on"}]
+                "featureType":"road.highway",
+                "elementType":"geometry.stroke",
+                "stylers":[{"color":"#0b434f"},{"lightness":25}]
             },{
-                "featureType": "road.local",
-                "elementType": "geometry.fill",
-                "stylers": [{"color":"#8b9dc3"}]
+                "featureType":"road.arterial",
+                "elementType":"geometry.fill",
+                "stylers":[{"color":"#000000"}]
             },{
-                "featureType": "transit.line",
-                "elementType": "geometry.fill",
-                "stylers": [{"color":"#ffffff"},{"weight":0.43}]
+                "featureType":"road.arterial",
+                "elementType":"geometry.stroke",
+                "stylers":[{"color":"#0b3d51"},{"lightness":16}]
             },{
-                "featureType": "water",
-                "elementType": "all",
-                "stylers":[{"color":"#3b5998"}]
+                "featureType":"road.local",
+                "elementType":"geometry",
+                "stylers":[{"color":"#000000"}]
+            },{
+                "featureType":"transit",
+                "elementType":"all",
+                "stylers":[{"color":"#146474"}]
+            },{
+                "featureType":"water",
+                "elementType":"all",
+                "stylers":[{"color":"#021019"}]
             }
         ],
     };
