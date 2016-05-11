@@ -31,7 +31,7 @@
             <ul class="results row" data-bind="foreach: places.selectedPlaces">
                 <li>
                     <h2 class="item-name" data-bind="text: name"></h2>
-                    <h4 class="item-types" data-bind="text: types.join(',')"></h4>
+                    <h4 class="item-types" data-bind="text: types().join(',')"></h4>
                 </li>
             </ul>
         </div>

@@ -45,7 +45,7 @@ app.mapObjects = app.mapObjects || {};
                 });
 
                 // Set the marker icon to the first type
-                marker.setIcon('img/' + place.types[0] + '.png');
+                marker.setIcon('img/' + place.types()[0] + '.png');
 
                 // Clear marker listeners in case it has any
                 google.maps.event.clearListeners(marker, 'click');

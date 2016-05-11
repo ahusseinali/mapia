@@ -16,7 +16,7 @@ app.models = app.models || {};
         this.img = 'https://maps.googleapis.com/maps/api/streetview?' +
            'size=350x250&heading=151.78&pitch=-0.76&location=' + location.lat() +',' + location.lng() +
            '&key=' + googleMapsKey;
-        this.types = [type];
+        this.types = ko.observableArray([type]);
         // This is to be filled with the yelp result.
         this.yelp = ko.observable(null);
     };
