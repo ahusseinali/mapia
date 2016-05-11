@@ -27,11 +27,17 @@ app.models = app.models || {};
 
     // Perform search and filter selectedPlaces
     PlacesModel.prototype.search = function(keyword) {
-        this.selectedPlaces(this.places.filter(function(place) {
-            return place.name.indexOf(keyword) > -1 ||
-                place.types.some(function(type) { type.indexOf(keyword) > -1; }) ||
-                place.address.indexOf(keyword) > -1;
-        }));
+        if(!keyword) {
+            return;
+        }
+        keyword = keyword.toLowerCase();
+        var filteredPlaces = this.places.filter(function(place) {
+            return place.name.toLowerCase().indexOf(keyword) > -1 ||
+                place.types.join(' ').toLowerCase().indexOf(keyword) > -1 ||
+                place.address.toLowerCase().indexOf(keyword) > -1;
+        });
+        console.log(filteredPlaces);
+        this.selectedPlaces(filteredPlaces);
     }
 
     // Use Ajax JSONP request to get near by places.
