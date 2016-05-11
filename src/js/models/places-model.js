@@ -25,6 +25,15 @@ app.models = app.models || {};
         return this.currentPlace() != null;
     }
 
+    // Perform search and filter selectedPlaces
+    PlacesModel.prototype.search = function(keyword) {
+        this.selectedPlaces(this.places.filter(function(place) {
+            return place.name.indexOf(keyword) > -1 ||
+                place.types.some(function(type) { type.indexOf(keyword) > -1; }) ||
+                place.address.indexOf(keyword) > -1;
+        }));
+    }
+
     // Use Ajax JSONP request to get near by places.
     // Using Google Places API
     PlacesModel.prototype.loadGooglePlaces = function(latLng) {

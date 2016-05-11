@@ -11,6 +11,12 @@ app.models = app.models || {};
         this.places = app.models.placesModel;
     };
 
+    // Perform search and result filteration.
+    MapModel.prototype.search = function(keyword) {
+        // Pass the search to the placesModel
+        this.places.search(keyword);
+    };
+
     // Specify the map initialization options
     app.models.mapModel = new MapModel();
 })();

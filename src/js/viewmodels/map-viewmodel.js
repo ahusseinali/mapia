@@ -45,7 +45,7 @@ app.mapObjects = app.mapObjects || {};
                 });
 
                 // Set the marker icon to the first type
-                marker.setIcon('img/' + place.types()[0] + '.png');
+                marker.setIcon('img/' + place.types[0] + '.png');
 
                 // Clear marker listeners in case it has any
                 google.maps.event.clearListeners(marker, 'click');
@@ -67,6 +67,11 @@ app.mapObjects = app.mapObjects || {};
 
     var MapViewModel = function(model) {
         this.mapModel = ko.observable(model);
+    };
+
+    MapViewModel.prototype.search = function(keyword) {
+        // Select places based on search result
+        this.mapModel.search(keyword);
     };
 
     app.viewModels.mapVM = new MapViewModel(app.models.mapModel);
