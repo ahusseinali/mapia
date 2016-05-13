@@ -94,11 +94,9 @@ app.models = app.models || {};
     PlacesModel.prototype.loadYelpDetails = function(place) {
         var terms = place.name;
         var near = place.latLng.lat() + ',' + place.latLng.lng();
-        var accessor = {
-            consumerSecret: this.yelp.consumerSecret,
-            tokenSecret: this.yelp.accessTokenSecret
-        };
+
         var self = this;
+
         // Construct Request Parameters
         var parameters = [];
         parameters.push(['term', terms]);
@@ -115,10 +113,15 @@ app.models = app.models || {};
             'parameters': parameters
         };
 
+        var accessor = {
+            consumerSecret: self.yelp.consumerSecret,
+            tokenSecret: self.yelp.accessTokenSecret
+        };
+
         OAuth.setTimestampAndNonce(message);
         OAuth.SignatureMethod.sign(message, accessor);
         var parameterMap = OAuth.getParameterMap(message.parameters);
-        parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
+        parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature)
 
         // Perform the ajax call.
         $.ajax({
@@ -127,6 +130,7 @@ app.models = app.models || {};
             'cache': true,
             'dataType': 'jsonp',
             'jsonpCallback': 'cb',
+            // 'headers': oauth.toHeader(oauth.authorize(message, token)),
             'success': function(data, textStats, XMLHttpRequest) {
                 // Take the first object in the businesses array.
                 if(data.businesses && data.businesses.length > 0) {
