@@ -44,7 +44,6 @@ app.models = app.models || {};
                 place.types.join(' ').toLowerCase().indexOf(keyword) > -1 ||
                 place.address.toLowerCase().indexOf(keyword) > -1;
         });
-        console.log(filteredPlaces);
         this.selectedPlaces(filteredPlaces);
     }
 
