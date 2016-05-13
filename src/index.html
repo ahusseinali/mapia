@@ -3,16 +3,21 @@
 <head>
     <title>Mapia</title>
     <meta charset="utf-8">
-    <!-- Styles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- build:styles-->
     <link rel="stylesheet" href="css/styles.css">
-
+    <!-- endbuild -->
     <!-- Library scripts -->
-    <script src="js/knockout-3.4.0.js"></script>
-    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/lib/knockout-3.4.0.js"></script>
+    <script src="js/lib/jquery-2.2.3.min.js"></script>
+    <script src="js/lib/oauth.js"></script>
+    <script src="js/lib/sha1.js"></script>
+    <!-- build:keys-->
     <script src="keys.js"></script>
-    <script src="js/oauth.js"></script>
-    <script src="js/sha1.js"></script>
+    <!-- endbuild -->
+    <!-- build:mapsAPI-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOGnqhe9Mv1eowQXkzZunmUSz2dajfySw&libraries=places"></script>
+    <!-- endbuild -->
 </head>
 <body>
     <div class="map-container" data-bind="with: mapModel">
