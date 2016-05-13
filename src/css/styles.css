@@ -87,11 +87,14 @@ body {
     background-color: #444;
     display: flex;
     flex-flow: column;
+    -webkit-transition: left 0.4s ease-out; /* Safari */
+    transition: left 0.4s ease-out;
 }
 
 .visible {
     left: 0;
-    animation-duration: 1s;
+    -webkit-transition: left 0.4s ease-out; /* Safari */
+    transition: left 0.4s ease-out;
 }
 
 /* Search Header Section */
