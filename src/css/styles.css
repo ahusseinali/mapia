@@ -61,17 +61,37 @@ body {
     margin-bottom: 5px;
 }
 
+/* Control buttons */
+.search-btn {
+    position: absolute;
+    top: 5vmin;
+    left: 5vmin;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 2em;
+    font-size: 25px;
+    text-align: center;
+    background-color: #444;
+    color: #f7f7f7;
+}
+
 /* Side Navigation Panel */
 .sideNav {
     position: absolute;
     top: 0;
-    left: 0;
+    left: -25%;     /* Move out of display to the left */
     height: 100%;
     width: 25%;
     min-width: 100px;
     background-color: #444;
     display: flex;
     flex-flow: column;
+}
+
+.visible {
+    left: 0;
+    animation-duration: 1s;
 }
 
 /* Search Header Section */
@@ -85,7 +105,7 @@ body {
     color: #aaa;
 }
 
-.fa-search {
+.icon {
   position: absolute;
   margin: auto;
   line-height: 10%;

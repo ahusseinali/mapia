@@ -21,10 +21,12 @@
             "googlemap: { center: center, zoom: zoom, places: places, styles: styles, info: infobox}">
         </div>
 
+        <div class="fa fa-search search-btn"></div>
+
         <div class="sideNav" data-bind="with: places">
             <div class="search-header row">
                 <div class="search">
-                    <div class="fa fa-search"></div>
+                    <div class="fa fa-search icon"></div>
                     <input class="searchbox" placeholder="Type search keyword"
                         data-bind="event: { keypress: search($element.value), paste: search($element.value), change: search($element.value) }">
                 </div>

@@ -12,7 +12,8 @@ app.mapObjects = app.mapObjects || {};
             mapOptions = {
                 zoom: val.zoom(),
                 center: val.center(),
-                styles: val.styles()
+                styles: val.styles(),
+                mapTypeControl: false
             };
 
             // Initialize map and info window and markers
