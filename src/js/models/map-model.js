@@ -9,6 +9,8 @@ app.models = app.models || {};
         this.zoom = ko.observable(15);
         this.styles = ko.observable(app.models.mapStyles.grayscale);
         this.places = new app.models.placesModel();
+        // Indicates if the sideNav should be visible or not.
+        this.sideNavVisible = ko.observable(false);
     };
 
     // Perform search and result filteration.
@@ -16,6 +18,14 @@ app.models = app.models || {};
         // Pass the search to the placesModel
         this.places.search(keyword);
     };
+
+    MapModel.prototype.openSideNav = function() {
+        this.sideNavVisible(true);
+    }
+
+    MapModel.prototype.closeSideNav = function() {
+        this.sideNavVisible(false);
+    }
 
     // Specify the map initialization options
     app.models.mapModel = new MapModel();

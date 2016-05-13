@@ -18,12 +18,12 @@
     <div class="map-container" data-bind="with: mapModel">
         <!-- Followed the custom binding handler in http://testasoftware.com/steve/blog/knockout-binding-handler-for-google-maps/ -->
         <div class="map" data-bind=
-            "googlemap: { center: center, zoom: zoom, places: places, styles: styles, info: infobox}">
+            "googlemap: { map: $data, info: infobox }">
         </div>
 
-        <div class="fa fa-search search-btn"></div>
+        <div class="fa fa-search search-btn" data-bind="click: openSideNav"></div>
 
-        <div class="sideNav" data-bind="with: places">
+        <div class="sideNav" data-bind="css: {visible: sideNavVisible}, with: places">
             <div class="search-header row">
                 <div class="search">
                     <div class="fa fa-search icon"></div>

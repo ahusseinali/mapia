@@ -8,7 +8,8 @@ app.mapObjects = app.mapObjects || {};
     // Add custom binding handler for google maps
     ko.bindingHandlers.googlemap = {
         init: function(elem, valueAccessor) {
-            var val = valueAccessor(),
+            var val = valueAccessor().map,
+
             mapOptions = {
                 zoom: val.zoom(),
                 center: val.center(),
@@ -30,7 +31,8 @@ app.mapObjects = app.mapObjects || {};
         },
 
         update: function(elem, valueAccessor) {
-            var val = valueAccessor();
+            var val = valueAccessor().map;
+            var infobox = valueAccessor().info;
             var placesModel = val.places;
             // Clear all markers
             app.mapObjects.markers.forEach(function(marker) {
@@ -52,12 +54,14 @@ app.mapObjects = app.mapObjects || {};
                 google.maps.event.clearListeners(marker, 'click');
                 // Add listener to marker
                 marker.addListener('click', function() {
+                    // Close the side navigation
+                    val.closeSideNav();
                     // Load yelp data
                     placesModel.loadYelpDetails(place);
                     // Set Current Place to trigger bidning with current place
                     placesModel.currentPlace(place);
                     // Get the Infowindow template
-                    app.mapObjects.infowindow.setContent(val.info);
+                    app.mapObjects.infowindow.setContent(infobox);
                     app.mapObjects.infowindow.open(app.mapObjects.map, marker);
                 });
 
@@ -74,6 +78,7 @@ app.mapObjects = app.mapObjects || {};
     MapViewModel.prototype.selectPlace = function(index) {
         // Trigger marker click
         new google.maps.event.trigger(app.mapObjects.markers[index], 'click');
+        // this.mapModel().closeSideNav();
     }
 
     app.viewModels.mapVM = new MapViewModel(app.models.mapModel);
