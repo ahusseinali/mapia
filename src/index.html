@@ -10,8 +10,15 @@
     <script src="js/knockout-3.4.0.js"></script>
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="keys.js"></script>
-    <script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>
-    <script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+    <!-- sha1 -->
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js">
+    </script>
+    <!-- sha256 -->
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+    <script src="oauth-1.0a.js"></script>
+    <!--<script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>
+    <script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOGnqhe9Mv1eowQXkzZunmUSz2dajfySw&libraries=places"></script>
 </head>
 <body>
@@ -21,7 +28,7 @@
             "googlemap: { center: center, zoom: zoom, places: places, styles: styles, info: infobox}">
         </div>
 
-        <div class="sideNav">
+        <div class="sideNav" data-bind="with: places">
             <div class="search-header row">
                 <div class="search">
                     <div class="fa fa-search"></div>
@@ -29,16 +36,15 @@
                         data-bind="event: { keypress: search($element.value), paste: search($element.value), change: search($element.value) }">
                 </div>
             </div>
-            <ul class="results row" data-bind="foreach: places.selectedPlaces">
-                <li data-bind="click: $root.selectPlace.bind($root, $index())">
+            <ul class="results row" data-bind="foreach: selectedPlaces">
+                <li data-bind="click: $root.selectPlace.bind($root, $index()), css: { selected: $parent.isPlaceSelected($data)}">
                     <h2 class="item-name" data-bind="text: name"></h2>
                     <h4 class="item-types" data-bind="text: types.join(',')"></h4>
-                </li>
             </ul>
         </div>
 
         <!-- Template to be displayed in the infobox -->
-        <div id="infobox" data-bind="visible: places.isPlaceSelected">
+        <div id="infobox" data-bind="visible: places.isAnyPlaceSelected">
             <div class="info-container" data-bind="with: places.currentPlace">
                 <h3 class="title" data-bind="text: name"></h3>
                 <div class="info-section">

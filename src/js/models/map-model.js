@@ -8,7 +8,7 @@ app.models = app.models || {};
         this.center = ko.observable(new google.maps.LatLng(47.6163, -122.192));
         this.zoom = ko.observable(15);
         this.styles = ko.observable(app.models.mapStyles.grayscale);
-        this.places = app.models.placesModel;
+        this.places = new app.models.placesModel();
     };
 
     // Perform search and result filteration.

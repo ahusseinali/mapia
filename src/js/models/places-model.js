@@ -21,9 +21,17 @@ app.models = app.models || {};
         this.currentPlace = ko.observable(null);
     };
 
-    PlacesModel.prototype.isPlaceSelected = function() {
-        return this.currentPlace() != null;
+    PlacesModel.prototype.toString = function() {
+        return this.selectedPlaces().length;
     }
+
+    PlacesModel.prototype.isPlaceSelected = function(place) {
+        return this.isAnyPlaceSelected() && place.id == this.currentPlace().id;
+    };
+
+    PlacesModel.prototype.isAnyPlaceSelected = function() {
+        return this.currentPlace() != null;
+    };
 
     // Perform search and filter selectedPlaces
     PlacesModel.prototype.search = function(keyword) {
@@ -129,5 +137,5 @@ app.models = app.models || {};
         });
     };
 
-    app.models.placesModel = new PlacesModel();
+    app.models.placesModel = PlacesModel;
 })();

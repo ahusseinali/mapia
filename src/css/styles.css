@@ -124,13 +124,13 @@ body {
 }
 
 /* List Item Styles */
-.results li {
+li {
     border-bottom: 1px solid #aaa;
     line-height: 2em;
     font-size: 12px;
 }
 
-.results li:hover {
+li:hover, .selected {
     background-color: #888;
 }
 
