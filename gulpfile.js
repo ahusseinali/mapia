@@ -66,10 +66,6 @@ gulp.task('fonts', function() {
 gulp.task('html', function() {
     gulp.src('./src/**/*.html')
     .pipe(htmlreplace({
-        mapsAPI: {
-            src: 'https://maps.googleapis.com/maps/api',
-            tpl: '<script src="%s/js?key=' + keys.googleMapsKey + '&libraries=places"></script>'
-        },
         models: {
             src: 'js',
             tpl: '<script src="%s/models.min.js"></script>'
