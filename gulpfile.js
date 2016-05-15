@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 gulp.task('models', function() {
     return gulp.src('./src/js/models/*.js')
         .pipe(concat('models.js'))
-        .pipe(gulp.dest('./dist/js'))
+        //.pipe(gulp.dest('./dist/js'))
         .pipe(rename('models.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
@@ -20,7 +20,7 @@ gulp.task('models', function() {
 gulp.task('viewmodels', function() {
     return gulp.src('./src/js/viewmodels/*.js')
         .pipe(concat('viewmodels.js'))
-        .pipe(gulp.dest('./dist/js'))
+        //.pipe(gulp.dest('./dist/js'))
         .pipe(rename('viewmodels.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
@@ -45,13 +45,19 @@ gulp.task('scripts', function() {
 
 // Minify all CSS files
 gulp.task('styles', function() {
-    gulp.src('./src/**/*.css', '!./src/fonts/*.css')
+    gulp.src(['./src/**/*.css', '!./src/fonts/*.css'])
     .pipe(minifyCSS())
     .pipe(rename(function(path) {
         path.basename += '.min';
         return path;
     }))
     .pipe(gulp.dest('./dist'));
+});
+
+// Copy Font files as they are
+gulp.task('fonts', function() {
+    gulp.src('./src/fonts/*')
+    .pipe(gulp.dest('./dist/fonts/'));
 });
 
 // Minify all HTML files and change links to CSS and JS to use the minified versions
@@ -69,8 +75,8 @@ gulp.task('html', function() {
         },
         vm: 'js/viewmodels.min.js',
         app: 'js/app.min.js',
-        keys: 'css/bootstrap-grid.min.css',
-        style: 'css/style.min.css'
+        keys: 'keys.min.js',
+        styles: 'css/styles.min.css'
     }))
     .pipe(gulp.dest('./dist'));
 });
@@ -81,5 +87,5 @@ gulp.task('images', function() {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('default', ['models', 'viewmodels', 'lib', 'scripts', 'styles', 'html', 'images']);
-
+gulp.task('default',
+    ['models', 'viewmodels', 'lib', 'scripts', 'styles', 'fonts', 'html', 'images']);
