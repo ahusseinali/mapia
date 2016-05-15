@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     minifyCSS = require('gulp-minify-css'),
     rename = require('gulp-rename'),
+    htmlmin = require('gulp-htmlmin'),
     keys = require('./src/keys.js');
 
 // Concatenate and Minify Models into models.min.js
@@ -78,6 +79,7 @@ gulp.task('html', function() {
         keys: 'keys.min.js',
         styles: 'css/styles.min.css'
     }))
+    .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest('./dist'));
 });
 
