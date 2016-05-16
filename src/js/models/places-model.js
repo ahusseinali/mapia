@@ -38,6 +38,7 @@ app.models = app.models || {};
         if(!keyword) {
             return;
         }
+        // Search for the keyword
         keyword = keyword.toLowerCase();
         var filteredPlaces = this.places.filter(function(place) {
             return place.name.toLowerCase().indexOf(keyword) > -1 ||
