@@ -1,17 +1,23 @@
 var gulp = require('gulp'),
     htmlreplace = require('gulp-html-replace');
     uglify = require('gulp-uglify'),
+    order = require('gulp-order'),
     concat = require('gulp-concat'),
     minifyCSS = require('gulp-minify-css'),
     rename = require('gulp-rename'),
-    htmlmin = require('gulp-htmlmin'),
-    keys = require('./src/keys.js');
+    htmlmin = require('gulp-htmlmin')
 
 // Concatenate and Minify Models into models.min.js
 gulp.task('models', function() {
     return gulp.src('./src/js/models/*.js')
+        .pipe(order([
+            "map-styles.js",
+            "yelp-model.js",
+            "place-model.js",
+            "places-model.js",
+            "map-model.js"
+        ]))
         .pipe(concat('models.js'))
-        //.pipe(gulp.dest('./dist/js'))
         .pipe(rename('models.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
@@ -21,7 +27,6 @@ gulp.task('models', function() {
 gulp.task('viewmodels', function() {
     return gulp.src('./src/js/viewmodels/*.js')
         .pipe(concat('viewmodels.js'))
-        //.pipe(gulp.dest('./dist/js'))
         .pipe(rename('viewmodels.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
@@ -66,10 +71,7 @@ gulp.task('fonts', function() {
 gulp.task('html', function() {
     gulp.src('./src/**/*.html')
     .pipe(htmlreplace({
-        models: {
-            src: 'js',
-            tpl: '<script src="%s/models.min.js"></script>'
-        },
+        models: 'js/models.min.js',
         vm: 'js/viewmodels.min.js',
         app: 'js/app.min.js',
         keys: 'keys.min.js',
