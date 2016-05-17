@@ -32,13 +32,14 @@ app.mapObjects = app.mapObjects || {};
 
         update: function(elem, valueAccessor) {
             var val = valueAccessor().map;
-            var infobox = valueAccessor().info;
+            var infoboxName = valueAccessor().info;
             var placesModel = val.places;
             // Clear all markers
             app.mapObjects.markers.forEach(function(marker) {
                 marker.setMap(null);
             })
             app.mapObjects.markers = [];
+            app.mapObjects.infoboxName = infoboxName;
 
             // Display only markers for selected places
             placesModel.selectedPlaces().forEach(function(place) {
@@ -60,8 +61,18 @@ app.mapObjects = app.mapObjects || {};
                     placesModel.loadYelpDetails(place);
                     // Set Current Place to trigger bidning with current place
                     placesModel.currentPlace(place);
-                    // Get the Infowindow template
-                    app.mapObjects.infowindow.setContent(infobox);
+
+                    // Construct an invisible element in the DOM tree with the template content
+                    var placeholder =
+                        $('<div style="display: none" data-bind="template: { name: \'' +
+                        app.mapObjects.infoboxName + '\'}"></div>').appendTo('body');
+                    console.log(place);
+                    ko.applyBindings(place, placeholder[0]);
+                    var resultHtml = placeholder.html();
+                    ko.cleanNode(placeholder[0]);
+                    placeholder.remove();
+
+                    app.mapObjects.infowindow.setContent(resultHtml);
                     app.mapObjects.infowindow.open(app.mapObjects.map, marker);
                 });
 

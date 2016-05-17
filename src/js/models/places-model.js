@@ -38,6 +38,8 @@ app.models = app.models || {};
         if(!keyword) {
             return;
         }
+        // Clear current place selection
+        this.currentPlace(null);
         // Search for the keyword
         keyword = keyword.toLowerCase();
         var filteredPlaces = this.places.filter(function(place) {
@@ -46,6 +48,7 @@ app.models = app.models || {};
                 place.address.toLowerCase().indexOf(keyword) > -1;
         });
         this.selectedPlaces(filteredPlaces);
+        console.log(this.currentPlace());
     }
 
     // Use Ajax JSONP request to get near by places.

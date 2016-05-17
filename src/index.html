@@ -21,7 +21,7 @@
     <div class="map-container" data-bind="with: mapModel">
         <!-- Followed the custom binding handler in http://testasoftware.com/steve/blog/knockout-binding-handler-for-google-maps/ -->
         <div class="map" data-bind=
-            "googlemap: { map: $data, info: infobox }">
+            "googlemap: { map: $data, info: 'infobox' }">
         </div>
 
         <div class="fa fa-search search-btn" data-bind="click: openSideNav"></div>
@@ -38,38 +38,39 @@
                 <li data-bind="click: $root.selectPlace.bind($root, $index()), css: { selected: $parent.isPlaceSelected($data)}">
                     <h2 class="item-name" data-bind="text: name"></h2>
                     <h4 class="item-types" data-bind="text: types.join(',')"></h4>
+                </li>
             </ul>
         </div>
+    </div>
 
-        <!-- Template to be displayed in the infobox -->
-        <div id="infobox" data-bind="visible: places.isAnyPlaceSelected">
-            <div class="info-container" data-bind="with: places.currentPlace">
-                <h3 class="title" data-bind="text: name"></h3>
-                <div class="info-section">
-                    <img class="banner" data-bind="attr: {src: img}">
-                    <label class="info-type">Address:
-                        <span class="info-data" data-bind="text: address"></span>
-                    </label>
-                    <label class="info-type">Google Rating:
-                        <span class="info-data" data-bind="text: rating"></span>
-                    </label>
-                </div>
-                <div class="info-section" data-bind="visible: hasYelpData">
-                    <!-- ko with: yelp -->
-                    <img class="yelp" src="img/yelp.png">
-                    <img class="banner" data-bind="attr: {src: img}">
-                    <label class="info-type">Rating:
-                        <img class="rating" data-bind="attr: {src: rating}">
-                    </label>
-                    <label class="info-type">Link:
-                        <a data-bind="attr: {href: url}, text: $parent.name"></a>
-                    </label>
-                    <p class="snippet" data-bind="text: snippet"></p>
-                    <!-- /ko -->
-                </div>
+    <!-- Template to be displayed in the infobox -->
+    <script id="infobox" type="text/html">
+        <div class="info-container">
+            <h3 class="title" data-bind="text: name"></h3>
+            <div class="info-section">
+                <img class="banner" data-bind="attr: {src: img}">
+                <label class="info-type">Address:
+                    <span class="info-data" data-bind="text: address"></span>
+                </label>
+                <label class="info-type">Google Rating:
+                    <span class="info-data" data-bind="text: rating"></span>
+                </label>
+            </div>
+            <div class="info-section" data-bind="visible: hasYelpData">
+                <!-- ko with: yelp -->
+                <img class="yelp" src="img/yelp.png">
+                <img class="banner" data-bind="attr: {src: img}">
+                <label class="info-type">Rating:
+                    <img class="rating" data-bind="attr: {src: rating}">
+                </label>
+                <label class="info-type">Link:
+                    <a data-bind="attr: {href: url}, text: $parent.name"></a>
+                </label>
+                <p class="snippet" data-bind="text: snippet"></p>
+                <!-- /ko -->
             </div>
         </div>
-    </div>
+    </script>
 
     <!-- JS Logic scripts -->
     <!-- build:models-->
