@@ -66,14 +66,18 @@ app.mapObjects = app.mapObjects || {};
                     var placeholder =
                         $('<div style="display: none" data-bind="template: { name: \'' +
                         app.mapObjects.infoboxName + '\'}"></div>').appendTo('body');
-                    console.log(place);
-                    ko.applyBindings(place, placeholder[0]);
-                    var resultHtml = placeholder.html();
-                    ko.cleanNode(placeholder[0]);
-                    placeholder.remove();
-
-                    app.mapObjects.infowindow.setContent(resultHtml);
-                    app.mapObjects.infowindow.open(app.mapObjects.map, marker);
+                    // As API data is loaded asynchronously, we need to wait
+                    // for data before cleaning it up
+                    setTimeout(function() {
+                        // Whatever you want to do after the wait
+                        ko.applyBindings(place, placeholder[0]);
+                        var resultHtml = placeholder.html();
+                        ko.cleanNode(placeholder[0]);
+                        placeholder.remove();
+                        console.log(resultHtml);
+                        app.mapObjects.infowindow.setContent(resultHtml);
+                        app.mapObjects.infowindow.open(app.mapObjects.map, marker);
+                    }, 1000);
                 });
 
                 app.mapObjects.markers.push(marker);

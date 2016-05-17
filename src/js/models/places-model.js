@@ -140,6 +140,7 @@ app.models = app.models || {};
                     var yelpObj = new app.models.yelp(data.businesses[0]);
                     place.yelp(yelpObj);
                 }
+                console.log(place.yelp());
             }
         });
     };
