@@ -19,7 +19,7 @@ body {
 
 #infoboxTemplate {
     width: 350px;
-    height: 600px;
+    height: 400px;
     position: absolute;
     top: -1000px;
     left:-1000px;
@@ -27,7 +27,7 @@ body {
 
 #infobox {
     width: 350px;
-    height: 600px;
+    height: 400px;
 }
 
 /* Info box styles */
@@ -36,6 +36,8 @@ body {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    /* Hide scrollbar for Internet Explorer */
+    -ms-overflow-style: -ms-autohiding-scrollbar
 }
 .title {
     text-align: center;
@@ -149,8 +151,8 @@ body {
     -ms-overflow-style: -ms-autohiding-scrollbar
 }
 
-/* Hide Scrollbar */
-.results::-webkit-scrollbar {
+/* Hide Scrollbars */
+.results::-webkit-scrollbar, .info-container::-webkit-scrollbar {
     width: 0;
 }
 
