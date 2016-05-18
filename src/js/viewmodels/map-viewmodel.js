@@ -76,6 +76,12 @@ app.mapObjects = app.mapObjects || {};
                     // Set Current Place to trigger bidning with current place
                     placesModel.currentPlace(place);
 
+                    // Set Marker Animation for 1 second
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(function() {
+                        marker.setAnimation(null);
+                    }, 2000);
+
                     var infobox = $('<div id="' + app.mapObjects.infoboxName +'"></div>')
                         .append($('#infoContainer'));
                     app.mapObjects.infowindow.setContent(infobox[0]);
