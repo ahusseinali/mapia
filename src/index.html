@@ -31,7 +31,7 @@
                 <div class="search">
                     <div class="fa fa-search icon"></div>
                     <input class="searchbox" placeholder="Type search keyword"
-                        data-bind="event: { keypress: search($element.value) }">
+                        data-bind="event: { 'keyup': $root.search.bind($root, $element.value) }">
                 </div>
             </div>
             <ul class="results row" data-bind="foreach: selectedPlaces">
@@ -41,36 +41,35 @@
                 </li>
             </ul>
         </div>
-    </div>
-
-    <!-- Template to be displayed in the infobox -->
-    <script id="infobox" type="text/html">
-        <div class="info-container">
-            <h3 class="title" data-bind="text: name"></h3>
-            <div class="info-section">
-                <img class="banner" data-bind="attr: {src: img}">
-                <label class="info-type">Address:
-                    <span class="info-data" data-bind="text: address"></span>
-                </label>
-                <label class="info-type">Google Rating:
-                    <span class="info-data" data-bind="text: rating"></span>
-                </label>
-            </div>
-            <div class="info-section" data-bind="visible: hasYelpData">
-                <!-- ko with: yelp -->
-                <img class="yelp" src="img/yelp.png">
-                <img class="banner" data-bind="attr: {src: img}">
-                <label class="info-type">Rating:
-                    <img class="rating" data-bind="attr: {src: rating}">
-                </label>
-                <label class="info-type">Link:
-                    <a data-bind="attr: {href: url}, text: $parent.name"></a>
-                </label>
-                <p class="snippet" data-bind="text: snippet"></p>
-                <!-- /ko -->
+        <!-- Template to be displayed in the infobox -->
+        <div id="infoboxTemplate">
+            <div id="infoContainer" class="info-container" data-bind="with: places.currentPlace">
+                <h3 class="title" data-bind="text: name"></h3>
+                <div class="info-section">
+                    <img class="banner" data-bind="attr: {src: img}">
+                    <label class="info-type">Address:
+                        <span class="info-data" data-bind="text: address"></span>
+                    </label>
+                    <label class="info-type">Google Rating:
+                        <span class="info-data" data-bind="text: rating"></span>
+                    </label>
+                </div>
+                <div class="info-section" data-bind="visible: hasYelpData()">
+                    <!-- ko with: yelp -->
+                    <img class="yelp" src="img/yelp.png">
+                    <img class="banner" data-bind="attr: {src: img}">
+                    <label class="info-type">Rating:
+                        <img class="rating" data-bind="attr: {src: rating}">
+                    </label>
+                    <label class="info-type">Link:
+                        <a data-bind="attr: {href: url}, text: $parent.name"></a>
+                    </label>
+                    <p class="snippet" data-bind="text: snippet"></p>
+                    <!-- /ko -->
+                </div>
             </div>
         </div>
-    </script>
+    </div>
 
     <!-- JS Logic scripts -->
     <!-- build:models-->

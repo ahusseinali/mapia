@@ -17,6 +17,14 @@ body {
     height: 100%;
 }
 
+#infoboxTemplate {
+    width: 350px;
+    height: 600px;
+    position: absolute;
+    top: -1000px;
+    left:-1000px;
+}
+
 #infobox {
     width: 350px;
     height: 600px;

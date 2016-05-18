@@ -23,6 +23,20 @@ app.mapObjects = app.mapObjects || {};
             {
                 content: ''
             });
+
+            // Set close event listener to info window
+            // The handler should return infowindow template content to template div.
+            app.mapObjects.infowindow.addListener('closeclick', function() {
+                // Get #infoboxContainer from inside #infobox
+                var content = this.getContent();
+                if(content) {
+                    content = content.firstChild;
+                    // Return #infoContainer to template
+                    $('#infoboxTemplate').append(content);
+                    this.setContent('');
+                }
+                this.close();
+            });
             app.mapObjects.markers = [];
 
             var placesModel = val.places;
@@ -53,7 +67,7 @@ app.mapObjects = app.mapObjects || {};
 
                 // Clear marker listeners in case it has any
                 google.maps.event.clearListeners(marker, 'click');
-                // Add listener to marker
+                // Add click listener to marker
                 marker.addListener('click', function() {
                     // Close the side navigation
                     val.closeSideNav();
@@ -62,22 +76,10 @@ app.mapObjects = app.mapObjects || {};
                     // Set Current Place to trigger bidning with current place
                     placesModel.currentPlace(place);
 
-                    // Construct an invisible element in the DOM tree with the template content
-                    var placeholder =
-                        $('<div style="display: none" data-bind="template: { name: \'' +
-                        app.mapObjects.infoboxName + '\'}"></div>').appendTo('body');
-                    // As API data is loaded asynchronously, we need to wait
-                    // for data before cleaning it up
-                    setTimeout(function() {
-                        // Whatever you want to do after the wait
-                        ko.applyBindings(place, placeholder[0]);
-                        var resultHtml = placeholder.html();
-                        ko.cleanNode(placeholder[0]);
-                        placeholder.remove();
-                        console.log(resultHtml);
-                        app.mapObjects.infowindow.setContent(resultHtml);
-                        app.mapObjects.infowindow.open(app.mapObjects.map, marker);
-                    }, 1000);
+                    var infobox = $('<div id="' + app.mapObjects.infoboxName +'"></div>')
+                        .append($('#infoContainer'));
+                    app.mapObjects.infowindow.setContent(infobox[0]);
+                    app.mapObjects.infowindow.open(app.mapObjects.map, marker);
                 });
 
                 app.mapObjects.markers.push(marker);
@@ -89,11 +91,19 @@ app.mapObjects = app.mapObjects || {};
         this.mapModel = ko.observable(model);
     };
 
+    //Search functionality
+    MapViewModel.prototype.search = function(keyword) {
+        // Manual trigger to gracefully close infowindow.
+        // Prevent a maps bug that makes window disappear without closing.
+        new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
+
+        this.mapModel().search(keyword);
+    }
+
     // Display Infobox when a place in side bar is selected.
     MapViewModel.prototype.selectPlace = function(index) {
         // Trigger marker click
         new google.maps.event.trigger(app.mapObjects.markers[index], 'click');
-        // this.mapModel().closeSideNav();
     }
 
     app.viewModels.mapVM = new MapViewModel(app.models.mapModel);
