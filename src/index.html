@@ -57,6 +57,7 @@
                 <div class="info-section" data-bind="visible: hasYelpData()">
                     <!-- ko with: yelp -->
                     <img class="yelp" src="img/yelp.png">
+                    <!-- ko ifnot: noData -->
                     <img class="banner" data-bind="attr: {src: img}">
                     <label class="info-type">Rating:
                         <img class="rating" data-bind="attr: {src: rating}">
@@ -65,6 +66,10 @@
                         <a data-bind="attr: {href: url}, text: $parent.name"></a>
                     </label>
                     <p class="snippet" data-bind="text: snippet"></p>
+                    <!-- /ko -->
+                    <!-- ko if: noData -->
+                    <p class="snippet" data-bind="text: noData"></p>
+                    <!-- /ko -->
                     <!-- /ko -->
                 </div>
             </div>

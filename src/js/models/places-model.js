@@ -21,16 +21,8 @@ app.models = app.models || {};
         this.currentPlace = ko.observable(null);
     };
 
-    PlacesModel.prototype.toString = function() {
-        return this.selectedPlaces().length;
-    }
-
     PlacesModel.prototype.isPlaceSelected = function(place) {
-        return this.isAnyPlaceSelected() && place.id == this.currentPlace().id;
-    };
-
-    PlacesModel.prototype.isAnyPlaceSelected = function() {
-        return this.currentPlace() != null;
+        return this.currentPlace() && place.id == this.currentPlace().id;
     };
 
     // Perform search and filter selectedPlaces
@@ -124,7 +116,7 @@ app.models = app.models || {};
         OAuth.setTimestampAndNonce(message);
         OAuth.SignatureMethod.sign(message, accessor);
         var parameterMap = OAuth.getParameterMap(message.parameters);
-        parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature)
+        parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
 
         // Perform the ajax call.
         $.ajax({
@@ -139,9 +131,21 @@ app.models = app.models || {};
                 if(data.businesses && data.businesses.length > 0) {
                     var yelpObj = new app.models.yelp(data.businesses[0]);
                     place.yelp(yelpObj);
+                } else {
+                    // No data found. Create No data object.
+                    place.yelp(new app.models.yelp(null));
                 }
             }
         });
+
+        // Handle failure with timeout function
+        setTimeout(function() {
+            if(place.yelp() == null) {
+                // Set yelp object with failure to get data message
+                place.yelp(new app.models.yelp(null));
+                place.yelp().noData = 'Failed to load Yelp Data';
+            }
+        }, 2000);
     };
 
     app.models.placesModel = PlacesModel;
