@@ -72,7 +72,7 @@ app.mapObjects = app.mapObjects || {};
                     // Close the side navigation
                     val.closeSideNav();
                     // Close InfoWindow from old location (if any is open)
-                        new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
+                    new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
                     // Load yelp data
                     placesModel.loadYelpDetails(place);
                     // Set Current Place to trigger bidning with current place
