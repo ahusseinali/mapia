@@ -1,6 +1,15 @@
 # Mapia
 Mapia is an interactive map about whats going on around you. It looks for interesting stories and places around you and display them on a Google Map.
 
+## Installation
+1. Download the respository.
+2. (_Optional_)You can use your keys for Google Maps API and Yelp API or use the current keys.
+2. Open _./dist/index.html_ in your browser (Compatible with recent browsers).
+
+### Rebuild Instructions
+1. Run `npm init` to install dependencies.
+2. Run `gulp` to generate _./dist_ directory.
+
 ## Features
 1. Display full size **Google Map** of my neighborhoud (Bellevue, WA, USA).
 2. Get places of interest from **Google Places API** (__Restaurants, Hotels, Stores, Groceries, Hospitals__).
@@ -8,7 +17,7 @@ Mapia is an interactive map about whats going on around you. It looks for intere
 4. Place details are retrieved from **Google Places API, Google Street View Image, Yelp API**.
 5. List of all the places on side navigation list.
 6. Search and automatic result filteration capability.
-7. Search includes results found in: __Name, Address, Place Category__.
+7. Search includes results found in: _Name, Address, Place Category_.
 8. Place details can be opened by selecting it from the search results.
 
 ## Known Issues
