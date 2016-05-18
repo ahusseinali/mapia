@@ -3,7 +3,7 @@ Mapia is an interactive map about whats going on around you. It looks for intere
 
 ## Installation
 1. Download the respository.
-2. (_Optional_)You can use your keys for Google Maps API and Yelp API or use the current keys.
+2. (_Optional_) You can use your keys for Google Maps API and Yelp API or use the current keys.
 2. Open _./dist/index.html_ in your browser (Compatible with recent browsers).
 
 ### Rebuild Instructions
