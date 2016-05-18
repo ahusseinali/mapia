@@ -71,21 +71,25 @@ app.mapObjects = app.mapObjects || {};
                 marker.addListener('click', function() {
                     // Close the side navigation
                     val.closeSideNav();
+                    // Close InfoWindow from old location (if any is open)
+                        new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
                     // Load yelp data
                     placesModel.loadYelpDetails(place);
                     // Set Current Place to trigger bidning with current place
                     placesModel.currentPlace(place);
 
                     // Set Marker Animation for 1 second
+                    // Then Display Info Window content.
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(function() {
                         marker.setAnimation(null);
-                    }, 2000);
 
-                    var infobox = $('<div id="' + app.mapObjects.infoboxName +'"></div>')
-                        .append($('#infoContainer'));
-                    app.mapObjects.infowindow.setContent(infobox[0]);
-                    app.mapObjects.infowindow.open(app.mapObjects.map, marker);
+                        // Display Info Window Content
+                        var infobox = $('<div id="' + app.mapObjects.infoboxName +'"></div>')
+                            .append($('#infoContainer'));
+                        app.mapObjects.infowindow.setContent(infobox[0]);
+                        app.mapObjects.infowindow.open(app.mapObjects.map, marker);
+                    }, 1000);
                 });
 
                 app.mapObjects.markers.push(marker);
