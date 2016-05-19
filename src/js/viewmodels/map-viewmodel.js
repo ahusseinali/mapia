@@ -71,6 +71,7 @@ app.mapObjects = app.mapObjects || {};
 
     // Display Infobox when a place in side bar is selected.
     MapViewModel.prototype.selectPlace = function(place) {
+        console.log(place);
         // Trigger marker click
         new google.maps.event.trigger(place.marker, 'click');
     }

@@ -35,7 +35,7 @@
                 </div>
             </div>
             <ul class="results row" data-bind="foreach: selectedPlaces">
-                <li data-bind="click: $root.selectPlace.bind($root, $data(), css: { selected: $parent.isPlaceSelected($data)}">
+                <li data-bind="click: $root.selectPlace.bind($root, $data), css: { selected: $parent.isPlaceSelected($data)}">
                     <h2 class="item-name" data-bind="text: name"></h2>
                     <h4 class="item-types" data-bind="text: types.join(',')"></h4>
                 </li>
