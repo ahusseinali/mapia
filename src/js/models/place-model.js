@@ -21,10 +21,6 @@ app.models = app.models || {};
         this.yelp = ko.observable(null);
     };
 
-    Place.prototype._getStreetViewImage = function() {
-        var url
-    }
-
     Place.prototype.hasYelpData = function() {
         return this.yelp() != null;
     };
