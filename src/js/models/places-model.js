@@ -32,6 +32,12 @@ app.models = app.models || {};
         }
         // Clear current place selection
         this.currentPlace(null);
+
+        // Hide all places markers
+        this.places.forEach(function(place) {
+            place.marker.setVisible(false);
+        });
+
         // Search for the keyword
         keyword = keyword.toLowerCase();
         var filteredPlaces = this.places.filter(function(place) {
@@ -39,8 +45,13 @@ app.models = app.models || {};
                 place.types.join(' ').toLowerCase().indexOf(keyword) > -1 ||
                 place.address.toLowerCase().indexOf(keyword) > -1;
         });
+
+        // Show filtered places markers
+        filteredPlaces.forEach(function(place) {
+            place.marker.setVisible(true);
+        });
         this.selectedPlaces(filteredPlaces);
-    }
+    };
 
     // Use Ajax JSONP request to get near by places.
     // Using Google Places API
@@ -48,20 +59,20 @@ app.models = app.models || {};
         this.places.splice(0, this.places.length);
         this.placesService = new google.maps.places.PlacesService(app.mapObjects.map);
         // Load stores
-        this.addGooglePlaces(latLng, 'store');
+        this._addGooglePlaces(latLng, 'store');
         // Load lodges
-        this.addGooglePlaces(latLng, 'lodge');
+        this._addGooglePlaces(latLng, 'lodge');
         // Load restaurants
-        this.addGooglePlaces(latLng, 'restaurant');
+        this._addGooglePlaces(latLng, 'restaurant');
         // Load grocery
-        this.addGooglePlaces(latLng, 'grocery');
+        this._addGooglePlaces(latLng, 'grocery');
         // Load hospitals
-        this.addGooglePlaces(latLng, 'hospital');
+        this._addGooglePlaces(latLng, 'hospital');
         // Load parks
-        this.addGooglePlaces(latLng, 'park');
+        this._addGooglePlaces(latLng, 'park');
     };
 
-    PlacesModel.prototype.addGooglePlaces = function(latLng, type) {
+    PlacesModel.prototype._addGooglePlaces = function(latLng, type) {
         var request = {
             location: latLng,
             keyword: type,
@@ -78,6 +89,9 @@ app.models = app.models || {};
                     existingPlace[0].types.push(type);
                 } else {
                     var newPlace = new app.models.place(googlePlace, type);
+                    // Create marker and add it to place
+                    var newMarker = self._createMarker(newPlace);
+                    newPlace.setMarker(newMarker);
                     self.places.push(newPlace);
                     self.selectedPlaces.push(newPlace);
                 }
@@ -85,7 +99,7 @@ app.models = app.models || {};
         });
     };
 
-    PlacesModel.prototype.loadYelpDetails = function(place) {
+    PlacesModel.prototype._loadYelpDetails = function(place) {
         var terms = place.name;
         var near = place.latLng.lat() + ',' + place.latLng.lng();
 
@@ -145,6 +159,46 @@ app.models = app.models || {};
                 place.yelp().noData = 'Failed to load Yelp Data';
             }
         }, 2000);
+    };
+
+    // Creates a marker for the place object.
+    // It also handles marker animation and click handler
+    PlacesModel.prototype._createMarker = function(place) {
+        var marker = new google.maps.Marker({
+            position: place.latLng,
+            map: app.mapObjects.map
+        });
+
+        var self = this;
+
+        // Set the marker icon to the first type
+        marker.setIcon('img/' + place.types[0] + '.png');
+        // Add click listener to marker
+        marker.addListener('click', function() {
+            // Close the side navigation
+            app.models.mapModel.closeSideNav();
+            // Close InfoWindow from old location (if any is open)
+            new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
+            // Load yelp data
+            self._loadYelpDetails(place);
+            // Set Current Place to trigger bidning with current place
+            self.currentPlace(place);
+
+            // Set Marker Animation for 1 second
+            // Then Display Info Window content.
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function() {
+                marker.setAnimation(null);
+
+                // Display Info Window Content
+                var infobox = $('<div id="' + app.mapObjects.infoboxName +'"></div>')
+                    .append($('#infoContainer'));
+                app.mapObjects.infowindow.setContent(infobox[0]);
+                app.mapObjects.infowindow.open(app.mapObjects.map, marker);
+            }, 1000);
+        });
+
+        return marker;
     };
 
     app.models.placesModel = PlacesModel;

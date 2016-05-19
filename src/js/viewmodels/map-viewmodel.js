@@ -52,50 +52,9 @@ app.mapObjects = app.mapObjects || {};
             app.mapObjects.markers.forEach(function(marker) {
                 marker.setMap(null);
             })
-            app.mapObjects.markers = [];
             app.mapObjects.infoboxName = infoboxName;
-
-            // Display only markers for selected places
-            placesModel.selectedPlaces().forEach(function(place) {
-                var marker = new google.maps.Marker({
-                    position: place.latLng,
-                    map: app.mapObjects.map
-                });
-
-                // Set the marker icon to the first type
-                marker.setIcon('img/' + place.types[0] + '.png');
-
-                // Clear marker listeners in case it has any
-                google.maps.event.clearListeners(marker, 'click');
-                // Add click listener to marker
-                marker.addListener('click', function() {
-                    // Close the side navigation
-                    val.closeSideNav();
-                    // Close InfoWindow from old location (if any is open)
-                    new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
-                    // Load yelp data
-                    placesModel.loadYelpDetails(place);
-                    // Set Current Place to trigger bidning with current place
-                    placesModel.currentPlace(place);
-
-                    // Set Marker Animation for 1 second
-                    // Then Display Info Window content.
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                    setTimeout(function() {
-                        marker.setAnimation(null);
-
-                        // Display Info Window Content
-                        var infobox = $('<div id="' + app.mapObjects.infoboxName +'"></div>')
-                            .append($('#infoContainer'));
-                        app.mapObjects.infowindow.setContent(infobox[0]);
-                        app.mapObjects.infowindow.open(app.mapObjects.map, marker);
-                    }, 1000);
-                });
-
-                app.mapObjects.markers.push(marker);
-            });
         }
-    }
+    };
 
     var MapViewModel = function(model) {
         this.mapModel = ko.observable(model);
@@ -111,9 +70,9 @@ app.mapObjects = app.mapObjects || {};
     }
 
     // Display Infobox when a place in side bar is selected.
-    MapViewModel.prototype.selectPlace = function(index) {
+    MapViewModel.prototype.selectPlace = function(place) {
         // Trigger marker click
-        new google.maps.event.trigger(app.mapObjects.markers[index], 'click');
+        new google.maps.event.trigger(place.marker, 'click');
     }
 
     app.viewModels.mapVM = new MapViewModel(app.models.mapModel);

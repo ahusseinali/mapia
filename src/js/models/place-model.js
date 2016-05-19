@@ -19,7 +19,12 @@ app.models = app.models || {};
         this.types = [type];
         // This is to be filled with the yelp result.
         this.yelp = ko.observable(null);
+        this.marker = null;
     };
+
+    Place.prototype.setMarker = function(marker) {
+        this.marker = marker;
+    }
 
     Place.prototype.hasYelpData = function() {
         return this.yelp() != null;
