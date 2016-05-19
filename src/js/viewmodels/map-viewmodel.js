@@ -19,6 +19,7 @@ app.mapObjects = app.mapObjects || {};
 
             // Initialize map and info window and markers
             app.mapObjects.map = new google.maps.Map(elem, mapOptions);
+            app.mapObjects.infoboxName = valueAccessor().info;
             app.mapObjects.infowindow = new google.maps.InfoWindow(
             {
                 content: ''
@@ -42,17 +43,6 @@ app.mapObjects = app.mapObjects || {};
             var placesModel = val.places;
             // Load places from Google Places API
             placesModel.loadGooglePlaces(val.center());
-        },
-
-        update: function(elem, valueAccessor) {
-            var val = valueAccessor().map;
-            var infoboxName = valueAccessor().info;
-            var placesModel = val.places;
-            // Clear all markers
-            app.mapObjects.markers.forEach(function(marker) {
-                marker.setMap(null);
-            })
-            app.mapObjects.infoboxName = infoboxName;
         }
     };
 
@@ -71,7 +61,6 @@ app.mapObjects = app.mapObjects || {};
 
     // Display Infobox when a place in side bar is selected.
     MapViewModel.prototype.selectPlace = function(place) {
-        console.log(place);
         // Trigger marker click
         new google.maps.event.trigger(place.marker, 'click');
     }
