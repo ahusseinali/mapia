@@ -57,13 +57,13 @@ app.mapObjects = app.mapObjects || {};
         new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
 
         this.mapModel().search(keyword);
-    }
+    };
 
     // Display Infobox when a place in side bar is selected.
     MapViewModel.prototype.selectPlace = function(place) {
         // Trigger marker click
         new google.maps.event.trigger(place.marker, 'click');
-    }
+    };
 
-    app.viewModels.mapVM = new MapViewModel(app.models.mapModel);
+    app.viewModels.mapVM = MapViewModel;
 })();

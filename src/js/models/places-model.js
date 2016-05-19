@@ -4,7 +4,7 @@ app.models = app.models || {};
 (function() {
     'use strict';
 
-    var PlacesModel = function() {
+    var PlacesModel = function(mapModel) {
         this.yelp = {
             url: 'http://api.yelp.com/v2/search',
 
@@ -19,6 +19,7 @@ app.models = app.models || {};
         this.places = [];
         this.selectedPlaces = ko.observableArray([]);
         this.currentPlace = ko.observable(null);
+        this.mapModel = mapModel;
     };
 
     PlacesModel.prototype.isPlaceSelected = function(place) {
@@ -176,7 +177,7 @@ app.models = app.models || {};
         // Add click listener to marker
         marker.addListener('click', function() {
             // Close the side navigation
-            app.models.mapModel.closeSideNav();
+            self.mapModel.closeSideNav.call(self.mapModel);
             // Close InfoWindow from old location (if any is open)
             new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
             // Load yelp data
