@@ -77,7 +77,7 @@ app.models = app.models || {};
         var request = {
             location: latLng,
             keyword: type,
-            radius: '2000'
+            radius: '500'
         };
         var self = this;
         self.placesService.nearbySearch(request, function(response) {
@@ -95,6 +95,9 @@ app.models = app.models || {};
                     newPlace.setMarker(newMarker);
                     self.places.push(newPlace);
                     self.selectedPlaces.push(newPlace);
+                    // Extend map bounds
+                    app.mapObjects.bounds.extend(newPlace.latLng);
+                    app.mapObjects.map.fitBounds(app.mapObjects.bounds);
                 }
             });
         });

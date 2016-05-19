@@ -7,3 +7,12 @@ function init() {
     // Apply binding to View Models
     ko.applyBindings(mapVM);
 }
+
+(function() {
+    // Handle failure to load Google maps in 5 seconds
+    setTimeout(function() {
+        if(typeof google == 'undefined' || typeof google.maps == 'undefined') {
+            alert('Failed to load Google Maps. Check your connection.');
+        }
+    }, 5000);
+})();

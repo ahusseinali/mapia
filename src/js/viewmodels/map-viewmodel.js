@@ -11,7 +11,6 @@ app.mapObjects = app.mapObjects || {};
             var val = valueAccessor().map,
 
             mapOptions = {
-                zoom: val.zoom(),
                 center: val.center(),
                 styles: val.styles(),
                 mapTypeControl: false
@@ -19,6 +18,7 @@ app.mapObjects = app.mapObjects || {};
 
             // Initialize map and info window and markers
             app.mapObjects.map = new google.maps.Map(elem, mapOptions);
+            app.mapObjects.bounds = new google.maps.LatLngBounds()
             app.mapObjects.infoboxName = valueAccessor().info;
             app.mapObjects.infowindow = new google.maps.InfoWindow(
             {
@@ -38,7 +38,6 @@ app.mapObjects = app.mapObjects || {};
                 }
                 this.close();
             });
-            app.mapObjects.markers = [];
 
             var placesModel = val.places;
             // Load places from Google Places API
