@@ -176,6 +176,8 @@ app.models = app.models || {};
             self.mapModel.closeSideNav.call(self.mapModel);
             // Close InfoWindow from old location (if any is open)
             new google.maps.event.trigger(app.mapObjects.infowindow, 'closeclick');
+            // Recenter the map to the marker
+            app.mapObjects.map.panTo(marker.getPosition());
             // Load yelp data
             self._loadYelpDetails(place);
             // Set Current Place to trigger bidning with current place
