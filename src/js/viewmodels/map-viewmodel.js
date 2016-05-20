@@ -19,7 +19,7 @@ app.mapObjects = app.mapObjects || {};
             // Initialize map and info window and markers
             app.mapObjects.map = new google.maps.Map(elem, mapOptions);
             app.mapObjects.bounds = new google.maps.LatLngBounds()
-            app.mapObjects.infoboxName = valueAccessor().info;
+            app.mapObjects.infobox = valueAccessor().info;
             app.mapObjects.infowindow = new google.maps.InfoWindow(
             {
                 content: ''
@@ -28,14 +28,6 @@ app.mapObjects = app.mapObjects || {};
             // Set close event listener to info window
             // The handler should return infowindow template content to template div.
             app.mapObjects.infowindow.addListener('closeclick', function() {
-                // Get #infoboxContainer from inside #infobox
-                var content = this.getContent();
-                if(content) {
-                    content = content.firstChild;
-                    // Return #infoContainer to template
-                    $('#infoboxTemplate').append(content);
-                    this.setContent('');
-                }
                 this.close();
             });
 

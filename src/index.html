@@ -21,7 +21,7 @@
     <div class="map-container" data-bind="with: mapModel">
         <!-- Followed the custom binding handler in http://testasoftware.com/steve/blog/knockout-binding-handler-for-google-maps/ -->
         <div class="map" data-bind=
-            "googlemap: { map: $data, info: 'infobox' }">
+            "googlemap: { map: $data, info: infobox }">
         </div>
 
         <div class="fa fa-search search-btn" data-bind="click: openSideNav"></div>
@@ -41,8 +41,9 @@
                 </li>
             </ul>
         </div>
+
         <!-- Template to be displayed in the infobox -->
-        <div id="infoboxTemplate">
+        <div id="infobox" data-bind="visible: places.isAnyPlaceSelected">
             <div id="infoContainer" class="info-container" data-bind="with: places.currentPlace">
                 <h3 class="title" data-bind="text: name"></h3>
                 <div class="info-section">

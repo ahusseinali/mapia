@@ -23,8 +23,12 @@ app.models = app.models || {};
     };
 
     PlacesModel.prototype.isPlaceSelected = function(place) {
-        return this.currentPlace() && place.id == this.currentPlace().id;
-    };
+         return this.isAnyPlaceSelected() && place.id == this.currentPlace().id;
+     };
+
+     PlacesModel.prototype.isAnyPlaceSelected = function() {
+         return this.currentPlace() != null;
+     };
 
     // Perform search and filter selectedPlaces
     PlacesModel.prototype.search = function(keyword) {
@@ -188,11 +192,8 @@ app.models = app.models || {};
             marker.setAnimation(google.maps.Animation.BOUNCE);
             setTimeout(function() {
                 marker.setAnimation(null);
-
                 // Display Info Window Content
-                var infobox = $('<div id="' + app.mapObjects.infoboxName +'"></div>')
-                    .append($('#infoContainer'));
-                app.mapObjects.infowindow.setContent(infobox[0]);
+                app.mapObjects.infowindow.setContent(app.mapObjects.infobox.outerHTML);
                 app.mapObjects.infowindow.open(app.mapObjects.map, marker);
             }, 1000);
         });
