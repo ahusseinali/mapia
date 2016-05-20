@@ -28,9 +28,7 @@ app.models = app.models || {};
 
     // Perform search and filter selectedPlaces
     PlacesModel.prototype.search = function(keyword) {
-        if(!keyword) {
-            return;
-        }
+        var filteredPlaces = this.places;
         // Clear current place selection
         this.currentPlace(null);
 
@@ -39,13 +37,15 @@ app.models = app.models || {};
             place.marker.setVisible(false);
         });
 
-        // Search for the keyword
-        keyword = keyword.toLowerCase();
-        var filteredPlaces = this.places.filter(function(place) {
-            return place.name.toLowerCase().indexOf(keyword) > -1 ||
-                place.types.join(' ').toLowerCase().indexOf(keyword) > -1 ||
-                place.address.toLowerCase().indexOf(keyword) > -1;
-        });
+        if(keyword) {
+            // Search for the keyword
+            keyword = keyword.toLowerCase();
+            filteredPlaces = filteredPlaces.filter(function(place) {
+                return place.name.toLowerCase().indexOf(keyword) > -1 ||
+                    place.types.join(' ').toLowerCase().indexOf(keyword) > -1 ||
+                    place.address.toLowerCase().indexOf(keyword) > -1;
+            });
+        }
 
         // Show filtered places markers
         filteredPlaces.forEach(function(place) {
