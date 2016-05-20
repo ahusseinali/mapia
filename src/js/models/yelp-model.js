@@ -10,7 +10,7 @@ app.models = app.models || {};
             this.snippet = yelpObj.snippet_text;
             this.noData = '';
         } else {
-            this.noData = 'No Yelp Data Found';
+            this.noData = ko.observable('No Yelp Data Found');
         }
     };
 

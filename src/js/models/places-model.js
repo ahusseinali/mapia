@@ -141,28 +141,21 @@ app.models = app.models || {};
             'data': parameterMap,
             'cache': true,
             'dataType': 'jsonp',
-            'jsonpCallback': 'cb',
-            // 'headers': oauth.toHeader(oauth.authorize(message, token)),
-            'success': function(data, textStats, XMLHttpRequest) {
-                // Take the first object in the businesses array.
-                if(data.businesses && data.businesses.length > 0) {
-                    var yelpObj = new app.models.yelp(data.businesses[0]);
-                    place.yelp(yelpObj);
-                } else {
-                    // No data found. Create No data object.
-                    place.yelp(new app.models.yelp(null));
-                }
-            }
-        });
-
-        // Handle failure with timeout function
-        setTimeout(function() {
-            if(place.yelp() == null) {
-                // Set yelp object with failure to get data message
+            'jsonpCallback': 'cb'
+        }).done(function(data) {
+            // Take the first object in the businesses array.
+            if(data.businesses && data.businesses.length > 0) {
+                var yelpObj = new app.models.yelp(data.businesses[0]);
+                place.yelp(yelpObj);
+            } else {
+                // No data found. Create No data object.
                 place.yelp(new app.models.yelp(null));
-                place.yelp().noData = 'Failed to load Yelp Data';
             }
-        }, 2000);
+        }).fail(function(jqXHR, textStatus) {
+            // Set yelp object with failure to get data message
+            place.yelp(new app.models.yelp(null));
+            place.yelp().noData('Failed to load Yelp Data');
+        });
     };
 
     // Creates a marker for the place object.
