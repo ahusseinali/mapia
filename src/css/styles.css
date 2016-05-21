@@ -1,6 +1,8 @@
 @import url(../fonts/font-awesome.min.css);
 
-html, body, .map-container {
+html,
+body,
+.map-container {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -15,14 +17,6 @@ body {
 .map {
     width: 100%;
     height: 100%;
-}
-
-#infoboxTemplate {
-    width: 350px;
-    height: 400px;
-    position: absolute;
-    top: -1000px;
-    left:-1000px;
 }
 
 #infobox {
