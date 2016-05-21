@@ -41,7 +41,7 @@
 
         <div class="fa fa-search search-btn" data-bind="click: openSideNav"></div>
 
-        <div class="sideNav" data-bind="css: {visible: sideNavVisible}, with: places">
+        <aside class="sideNav" data-bind="css: {visible: sideNavVisible}, with: places">
             <div class="search-header row">
                 <div class="search">
                     <div class="fa fa-search icon"></div>
@@ -55,22 +55,22 @@
                     <h4 class="item-types" data-bind="text: types.join(',')"></h4>
                 </li>
             </ul>
-        </div>
+        </aside>
 
         <!-- Template to be displayed in the infobox -->
         <div id="infobox" class="info-window" data-bind="visible: places.isAnyPlaceSelected">
-            <div class="info-container" data-bind="with: places.currentPlace">
+            <section class="info-container" data-bind="with: places.currentPlace">
                 <h3 class="title" data-bind="text: name"></h3>
-                <div class="info-section">
+                <article class="info-section">
                     <img class="banner" data-bind="attr: {src: img}">
                     <label class="info-type">Address:
-                        <span class="info-data" data-bind="text: address"></span>
+                        <address class="info-data" data-bind="text: address"></address>
                     </label>
                     <label class="info-type">Google Rating:
                         <span class="info-data" data-bind="text: rating"></span>
                     </label>
-                </div>
-                <div class="info-section" data-bind="visible: hasYelpData()">
+                </article>
+                <article class="info-section" data-bind="visible: hasYelpData()">
                     <!-- ko with: yelp -->
                     <img class="yelp" src="img/yelp.png">
                     <!-- ko ifnot: noData -->
@@ -87,8 +87,8 @@
                     <p class="snippet" data-bind="text: noData"></p>
                     <!-- /ko -->
                     <!-- /ko -->
-                </div>
-            </div>
+                </article>
+            </section>
         </div>
     </div>
 </body>

@@ -58,6 +58,7 @@ body {
 .info-data {
     font-weight: normal;
     font-style: italic;
+    display: inline;
 }
 
 .yelp {
