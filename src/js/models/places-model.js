@@ -195,7 +195,7 @@ app.models = app.models || {};
                 // Display Info Window Content
                 app.mapObjects.infowindow.setContent(app.mapObjects.infobox.outerHTML);
                 app.mapObjects.infowindow.open(app.mapObjects.map, marker);
-            }, 1000);
+            }, 700);
         });
 
         return marker;
