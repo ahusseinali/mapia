@@ -15,6 +15,21 @@
     <!-- build:keys-->
     <script src="keys.js"></script>
     <!-- endbuild -->
+
+    <!-- JS Logic scripts -->
+    <!-- build:models-->
+    <script src="js/models/map-styles.js"></script>
+    <script src="js/models/yelp-model.js"></script>
+    <script src="js/models/place-model.js"></script>
+    <script src="js/models/places-model.js"></script>
+    <script src="js/models/map-model.js"></script>
+    <!-- endbuild -->
+    <!-- build:vm-->
+    <script src="js/viewmodels/map-viewmodel.js"></script>
+    <!-- endbuild -->
+    <!-- build:app-->
+    <script src="js/app.js"></script>
+    <!-- endbuild -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOGnqhe9Mv1eowQXkzZunmUSz2dajfySw&libraries=places&callback=init" async defer></script>
 </head>
 <body>
@@ -76,20 +91,5 @@
             </div>
         </div>
     </div>
-
-    <!-- JS Logic scripts -->
-    <!-- build:models-->
-    <script src="js/models/map-styles.js"></script>
-    <script src="js/models/yelp-model.js"></script>
-    <script src="js/models/place-model.js"></script>
-    <script src="js/models/places-model.js"></script>
-    <script src="js/models/map-model.js"></script>
-    <!-- endbuild -->
-    <!-- build:vm-->
-    <script src="js/viewmodels/map-viewmodel.js"></script>
-    <!-- endbuild -->
-    <!-- build:app-->
-    <script src="js/app.js"></script>
-    <!-- endbuild -->
 </body>
 </html>
