@@ -43,8 +43,8 @@
         </div>
 
         <!-- Template to be displayed in the infobox -->
-        <div id="infobox" data-bind="visible: places.isAnyPlaceSelected">
-            <div id="infoContainer" class="info-container" data-bind="with: places.currentPlace">
+        <div id="infobox" class="info-window" data-bind="visible: places.isAnyPlaceSelected">
+            <div class="info-container" data-bind="with: places.currentPlace">
                 <h3 class="title" data-bind="text: name"></h3>
                 <div class="info-section">
                     <img class="banner" data-bind="attr: {src: img}">

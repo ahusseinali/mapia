@@ -19,7 +19,7 @@ body {
     height: 100%;
 }
 
-#infobox {
+.info-window {
     width: 350px;
     height: 400px;
 }
