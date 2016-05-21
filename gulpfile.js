@@ -3,9 +3,10 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     order = require('gulp-order'),
     concat = require('gulp-concat'),
-    minifyCSS = require('gulp-minify-css'),
+    cleanCSS = require('gulp-clean-css'),
     rename = require('gulp-rename'),
-    htmlmin = require('gulp-htmlmin')
+    htmlmin = require('gulp-htmlmin'),
+    sourcemaps = require('gulp-sourcemaps');
 
 // Concatenate and Minify Models into models.min.js
 gulp.task('models', function() {
@@ -17,18 +18,22 @@ gulp.task('models', function() {
             "places-model.js",
             "map-model.js"
         ]))
+        .pipe(sourcemaps.init())
         .pipe(concat('models.js'))
         .pipe(rename('models.min.js'))
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./dist/js'));
 });
 
 // Concatenate and Minify ViewModels into viewmodels.min.js
 gulp.task('viewmodels', function() {
     return gulp.src('./src/js/viewmodels/*.js')
+        .pipe(sourcemaps.init())
         .pipe(concat('viewmodels.js'))
         .pipe(rename('viewmodels.min.js'))
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./dist/js'));
 });
 
@@ -41,22 +46,26 @@ gulp.task('lib', function() {
 // Minify and rename all other JS files except lib files
 gulp.task('scripts', function() {
     gulp.src(['./src/**/*.js', '!./src/js/lib/*.js', '!./src/js/models/*.js', '!./src/js/viewmodels/*.js'])
+    .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(rename(function(path) {
         path.basename += '.min';
         return path;
     }))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./dist'));
 });
 
 // Minify all CSS files
 gulp.task('styles', function() {
     gulp.src(['./src/**/*.css', '!./src/fonts/*.css'])
-    .pipe(minifyCSS())
+    .pipe(sourcemaps.init())
+    .pipe(cleanCSS({compatibility: 'ie8', processImport: false}))
     .pipe(rename(function(path) {
         path.basename += '.min';
         return path;
     }))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./dist'));
 });
 
